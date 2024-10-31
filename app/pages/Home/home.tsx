@@ -10,6 +10,8 @@ import { Txt } from "@/components/txt/txt";
 import { MeteoBasic } from "@/components/meteoBasic/meteoBasic";
 import {getWeatherInterpretation} from "@/services/meteo-service";
 import {MeteoAdvanced} from "@/components/MeteoAdvanced/MateoAdvanced";
+import {useNavigation} from "@react-navigation/native";
+import {Container} from "@/components/Container/Container";
 
 export type Coords = {
   lat: number | string;
@@ -21,6 +23,7 @@ export function Home({}) {
   const [weather, setWeather] = useState<any>();
   const [currentCity, setCurrentCity]= useState<any>();
   const currentWeather = weather?.current_weather;
+  const nav= useNavigation()
 
   //useFeects s'utilse pour definir le comportement de l'app a un moment donne , ici, c'est au lancemant de ce coposant qu'on veut appeler getusercoords
   useEffect(() => {
@@ -60,19 +63,26 @@ export function Home({}) {
     setCurrentCity(cityResponse);
     console.log(`La ville actuelle est ${cityResponse}`);
   }
+
+  function goToForecastPage(){
+    // @ts-ignore
+    nav.navigate('Forecast' , {currentCity,...weather.daily})
+  }
+
   return  currentWeather? (
 
-    <>
+    <Container>
       <View style={s.meteo_basic}>
       <MeteoBasic temp={ Math.round( currentWeather?.temperature)}
                   interpretation={getWeatherInterpretation(currentWeather?.weathercode)}
                   city={currentCity}
+                  onPress={goToForecastPage}
       ></MeteoBasic>
       </View>
       <View style={s.search_bar}></View>
       <View style={s.meteo_advanced}>
-        <MeteoAdvanced></MeteoAdvanced>
+        <MeteoAdvanced wind={currentWeather.windspeed} dawn={'17:16'} dusk={'8:42'} ></MeteoAdvanced>
       </View>
-    </>
+    </Container>
   ) : null;
 }

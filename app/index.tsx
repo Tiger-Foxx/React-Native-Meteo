@@ -1,30 +1,53 @@
-import { ImageBackground, SafeAreaView, Text, View } from "react-native";
-import { Home } from "./pages/Home/home";
 import React from "react";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import s from "./App.style";
+import { ImageBackground, SafeAreaView } from "react-native";
+import { Home } from "./pages/Home/home";
 import { useFonts } from "expo-font";
-// import backgroundImg from "../assets/images/background.png";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer , Theme } from "@react-navigation/native";
+import {Forecast} from "@/app/pages/Forecast/Forecast";
 
+// Définir le type de routes
+type RootStackParamList = {
+    Home: undefined | any;
+    Forecast: undefined | any;
+};
 
-
+const Stack = createNativeStackNavigator<RootStackParamList>();
+const navTheme: Theme = {
+    dark: false,
+    colors: {
+        primary: 'rgb(0, 122, 255)',
+        background: 'transparent',
+        card: 'rgb(255, 255, 255)',
+        text: 'rgb(28, 28, 30)',
+        border: 'rgb(224, 224, 224)',
+        notification: 'rgb(255, 69, 58)',
+    },
+};
 export default function Index() {
   const [loaded] = useFonts({
-    "AlataRegular": require('../assets/fonts/SpaceMono-Regular.ttf'),
+    AlataRegular: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
-  if (!loaded) {
-    return null;
-  }
+
   return (
-    <>
-    <ImageBackground source={require('../assets/images/background.png')} style={s.img_background} imageStyle={s.img}>
-      <SafeAreaProvider>
-        <SafeAreaView style={s.container}>
-          <Home></Home>
-        </SafeAreaView>
-      </SafeAreaProvider>
-    </ImageBackground>
-    </>
-    
+      <NavigationContainer independent={ true} theme={navTheme}>
+
+              {loaded ? (
+                  <Stack.Navigator initialRouteName={"Home"}>
+                    <Stack.Screen
+                        name="Home"
+                        component={Home}
+                        options={{ headerShown: false , animation:"fade" }}
+                    />
+                      <Stack.Screen
+                          name="Forecast"
+                          component={Forecast}
+                          options={{ headerShown: false }}
+                      />
+                  </Stack.Navigator>
+              ) : null}
+
+
+      </NavigationContainer>
   );
 }

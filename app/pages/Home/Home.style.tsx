@@ -9,7 +9,7 @@ const s = StyleSheet.create({
     flex:1,
   },
   meteo_advanced:{
-    flex:2,
+    flex:1.5,
   },
 });
 

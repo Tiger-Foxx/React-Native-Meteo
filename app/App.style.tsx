@@ -15,5 +15,5 @@ const s= StyleSheet.create({
   }
 });
 
-export  default s;
+export {s};
 

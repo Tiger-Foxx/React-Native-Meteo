@@ -8,6 +8,7 @@ const s= StyleSheet.create({
   img_background:{
     flex:1,
     backgroundColor:"black",
+      padding:20,
   },
   img:{
     opacity:0.75

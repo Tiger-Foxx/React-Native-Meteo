@@ -25,6 +25,10 @@ const s = StyleSheet.create({
         width:30,
 
     }
+    ,
+    forecastList:{
+        marginTop:50,
+    }
 
 
 })

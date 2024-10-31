@@ -5,13 +5,13 @@ export const WEATHER_INTERPRATIONS = [
         image: require("../assets/images/meteo_img/sun.png"),
     },
     {
-        codes: [1, 2, 3, 45, 48],
+        codes: [1, 2, 3, 45, 48,95],
         label: "Nuageux",
         image: require("../assets/images/meteo_img/clouds.png"),
     },
     {
         codes: [
-            51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82, 85, 86,
+            51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82, 85, 86
         ],
         label: "Pluvieux",
         image: require("../assets/images/meteo_img/rain.png"),

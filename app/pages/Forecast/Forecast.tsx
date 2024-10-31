@@ -5,6 +5,9 @@ import {TouchableOpacity, View} from "react-native";
 import {useNavigation, useRoute} from "@react-navigation/native";
 import {Container} from "../../../components/Container/Container"
 import {any} from "prop-types";
+import {ForecastListItem} from "@/components/ForecastListItem/ForecastListItem";
+import {getWeatherInterpretation} from "@/services/meteo-service";
+import {DAYS} from "@/services/date-service";
 
 
 
@@ -31,12 +34,24 @@ export function Forecast() {
       </View>
   )
 
+const forecastList=(
+    <View style={s.forecastList}>
+        {parameters?.time?.map((time: any, index: number) => {
+            const code=parameters.weathercode[index];
+            const interpretation = getWeatherInterpretation(code)
+            console.log("INTERPRETATION : ", code)
+            const image = interpretation?.image
+            const day= DAYS[new  Date(time).getDay()]
+            const temperature = parameters.temperature_2m_max[index]
+            return <ForecastListItem key={index} jour={day} image={image} date={time} temp={ Math.round(temperature) } ></ForecastListItem>
+
+
+        })}
+    </View>
+)
+
   return <Container>
-
-
-
     {header}
-
-
+      {forecastList}
         </Container>;
 }

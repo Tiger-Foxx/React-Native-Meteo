@@ -25,7 +25,19 @@ export function MeteoBasic({ clock, city, label, temp, image,interpretation, onP
       <Txt style={[{fontSize:20},s.label]}>{interpretation.label}</Txt>
         {/*<Txt>Temp</Txt>*/}
       <View style={s.temp_container}>
-         <TouchableOpacity onPress={onPress}><Txt style={s.temperature}>{temp}°</Txt></TouchableOpacity>
+          <View style={s.container_temp} >
+
+                  <TouchableOpacity onPress={onPress}>
+                      <View style={s.btn_week} >
+                          <Txt style={s.btn_week_text}>Cette semaine {'>'}</Txt>
+
+                      </View>
+
+                  </TouchableOpacity>
+
+              <TouchableOpacity onPress={onPress}><Txt style={s.temperature}>{temp}°</Txt></TouchableOpacity>
+
+          </View>
         <Image style={s.image} source={interpretation.image}></Image>
       </View>
     </>
